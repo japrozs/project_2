@@ -203,3 +203,49 @@ class TrailModel {
         'region': region,
       };
 }
+
+class ReportModel {
+  final String id;
+  final String userId;
+  final String trailId;
+  final String conditionType;
+  final String description;
+  final String photoURL;
+  final DateTime timestamp;
+  final String userDisplayName;
+
+  const ReportModel({
+    required this.id,
+    required this.userId,
+    required this.trailId,
+    required this.conditionType,
+    required this.description,
+    this.photoURL = '',
+    required this.timestamp,
+    this.userDisplayName = '',
+  });
+
+  factory ReportModel.fromFirestore(DocumentSnapshot doc) {
+    final data = doc.data() as Map<String, dynamic>;
+    return ReportModel(
+      id: doc.id,
+      userId: data['userId'] ?? '',
+      trailId: data['trailId'] ?? '',
+      conditionType: data['conditionType'] ?? '',
+      description: data['description'] ?? '',
+      photoURL: data['photoURL'] ?? '',
+      timestamp: (data['timestamp'] as Timestamp?)?.toDate() ?? DateTime.now(),
+      userDisplayName: data['userDisplayName'] ?? 'Hiker',
+    );
+  }
+
+  Map<String, dynamic> toMap() => {
+        'userId': userId,
+        'trailId': trailId,
+        'conditionType': conditionType,
+        'description': description,
+        'photoURL': photoURL,
+        'timestamp': Timestamp.fromDate(timestamp),
+        'userDisplayName': userDisplayName,
+      };
+}
