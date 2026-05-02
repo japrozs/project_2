@@ -67,6 +67,8 @@ class UserModel {
   }
 }
 
+// ─── HikeModel ───────────────────────────────────────────────────────────────
+
 class HikeModel {
   final String id;
   final String userId;
@@ -137,6 +139,8 @@ class HikeModel {
   }
 }
 
+// ─── TrailModel ──────────────────────────────────────────────────────────────
+
 class TrailModel {
   final String id;
   final String name;
@@ -204,6 +208,8 @@ class TrailModel {
       };
 }
 
+// ─── ReportModel ─────────────────────────────────────────────────────────────
+
 class ReportModel {
   final String id;
   final String userId;
@@ -249,6 +255,8 @@ class ReportModel {
         'userDisplayName': userDisplayName,
       };
 }
+
+// ─── PostModel ───────────────────────────────────────────────────────────────
 
 class PostModel {
   final String id;
@@ -406,4 +414,77 @@ class BadgeDefinition {
     required this.description,
     required this.icon,
   });
+}
+
+class AppBadges {
+  static const List<BadgeDefinition> all = [
+    BadgeDefinition(
+      id: 'first_hike',
+      name: 'First Steps',
+      description: 'Logged your first hike',
+      icon: 'boot',
+    ),
+    BadgeDefinition(
+      id: 'hike_5',
+      name: 'Trail Starter',
+      description: 'Logged 5 hikes',
+      icon: 'trail',
+    ),
+    BadgeDefinition(
+      id: 'hike_10',
+      name: 'Weekend Warrior',
+      description: 'Logged 10 hikes',
+      icon: 'mountain',
+    ),
+    BadgeDefinition(
+      id: 'hike_25',
+      name: 'Trailblazer',
+      description: 'Logged 25 hikes',
+      icon: 'fire',
+    ),
+    BadgeDefinition(
+      id: 'hike_50',
+      name: 'Summit Seeker',
+      description: 'Logged 50 hikes',
+      icon: 'flag',
+    ),
+    BadgeDefinition(
+      id: 'miles_10',
+      name: '10 Mile Club',
+      description: 'Hiked a total of 10 miles',
+      icon: 'road',
+    ),
+    BadgeDefinition(
+      id: 'miles_50',
+      name: '50 Mile Club',
+      description: 'Hiked a total of 50 miles',
+      icon: 'map',
+    ),
+    BadgeDefinition(
+      id: 'miles_100',
+      name: 'Century Hiker',
+      description: 'Hiked a total of 100 miles',
+      icon: 'trophy',
+    ),
+    BadgeDefinition(
+      id: 'community',
+      name: 'Community Voice',
+      description: 'Submitted your first trail report',
+      icon: 'people',
+    ),
+    BadgeDefinition(
+      id: 'photographer',
+      name: 'Trail Photographer',
+      description: 'Uploaded photos on 5 hikes',
+      icon: 'camera',
+    ),
+  ];
+
+  static BadgeDefinition? findById(String id) {
+    try {
+      return all.firstWhere((b) => b.id == id);
+    } catch (_) {
+      return null;
+    }
+  }
 }
