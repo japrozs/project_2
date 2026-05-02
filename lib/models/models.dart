@@ -136,3 +136,70 @@ class HikeModel {
     return '${hours}h ${mins}m';
   }
 }
+
+class TrailModel {
+  final String id;
+  final String name;
+  final GeoPoint location;
+  final String difficulty;
+  final double lengthMiles;
+  final int elevationFt;
+  final int riskScore;
+  final String riskLevel;
+  final DateTime lastUpdated;
+  final String description;
+  final String imageURL;
+  final String state;
+  final String region;
+
+  const TrailModel({
+    required this.id,
+    required this.name,
+    required this.location,
+    required this.difficulty,
+    required this.lengthMiles,
+    this.elevationFt = 0,
+    this.riskScore = 0,
+    this.riskLevel = 'Low',
+    required this.lastUpdated,
+    this.description = '',
+    this.imageURL = '',
+    this.state = '',
+    this.region = '',
+  });
+
+  factory TrailModel.fromFirestore(DocumentSnapshot doc) {
+    final data = doc.data() as Map<String, dynamic>;
+    return TrailModel(
+      id: doc.id,
+      name: data['name'] ?? '',
+      location: data['location'] ?? const GeoPoint(0, 0),
+      difficulty: data['difficulty'] ?? 'Easy',
+      lengthMiles: (data['lengthMiles'] ?? 0).toDouble(),
+      elevationFt: data['elevationFt'] ?? 0,
+      riskScore: data['riskScore'] ?? 0,
+      riskLevel: data['riskLevel'] ?? 'Low',
+      lastUpdated:
+          (data['lastUpdated'] as Timestamp?)?.toDate() ?? DateTime.now(),
+      description: data['description'] ?? '',
+      imageURL: data['imageURL'] ?? '',
+      state: data['state'] ?? '',
+      region: data['region'] ?? '',
+    );
+  }
+
+  Map<String, dynamic> toMap() => {
+        'name': name,
+        'location': location,
+        'difficulty': difficulty,
+        'lengthMiles': lengthMiles,
+        'elevationFt': elevationFt,
+        'riskScore': riskScore,
+        'riskLevel': riskLevel,
+        'lastUpdated': Timestamp.fromDate(lastUpdated),
+        'description': description,
+        'imageURL': imageURL,
+        'state': state,
+        'region': region,
+      };
+}
