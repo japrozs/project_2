@@ -38,14 +38,14 @@ class UserModel {
   }
 
   Map<String, dynamic> toMap() => {
-    'displayName': displayName,
-    'email': email,
-    'photoURL': photoURL,
-    'totalHikes': totalHikes,
-    'totalMiles': totalMiles,
-    'badgesEarned': badgesEarned,
-    'createdAt': Timestamp.fromDate(createdAt),
-  };
+        'displayName': displayName,
+        'email': email,
+        'photoURL': photoURL,
+        'totalHikes': totalHikes,
+        'totalMiles': totalMiles,
+        'badgesEarned': badgesEarned,
+        'createdAt': Timestamp.fromDate(createdAt),
+      };
 
   UserModel copyWith({
     String? displayName,
@@ -64,5 +64,75 @@ class UserModel {
       badgesEarned: badgesEarned ?? this.badgesEarned,
       createdAt: createdAt,
     );
+  }
+}
+
+class HikeModel {
+  final String id;
+  final String userId;
+  final String trailId;
+  final String title;
+  final double distance;
+  final int durationMinutes;
+  final DateTime date;
+  final String notes;
+  final List<String> photoURLs;
+  final bool isPublic;
+  final DateTime createdAt;
+  final int elevationGain;
+
+  const HikeModel({
+    required this.id,
+    required this.userId,
+    this.trailId = '',
+    required this.title,
+    required this.distance,
+    required this.durationMinutes,
+    required this.date,
+    this.notes = '',
+    this.photoURLs = const [],
+    this.isPublic = true,
+    required this.createdAt,
+    this.elevationGain = 0,
+  });
+
+  factory HikeModel.fromFirestore(DocumentSnapshot doc) {
+    final data = doc.data() as Map<String, dynamic>;
+    return HikeModel(
+      id: doc.id,
+      userId: data['userId'] ?? '',
+      trailId: data['trailId'] ?? '',
+      title: data['title'] ?? '',
+      distance: (data['distance'] ?? 0).toDouble(),
+      durationMinutes: data['durationMinutes'] ?? 0,
+      date: (data['date'] as Timestamp?)?.toDate() ?? DateTime.now(),
+      notes: data['notes'] ?? '',
+      photoURLs: List<String>.from(data['photoURLs'] ?? []),
+      isPublic: data['isPublic'] ?? true,
+      createdAt: (data['createdAt'] as Timestamp?)?.toDate() ?? DateTime.now(),
+      elevationGain: data['elevationGain'] ?? 0,
+    );
+  }
+
+  Map<String, dynamic> toMap() => {
+        'userId': userId,
+        'trailId': trailId,
+        'title': title,
+        'distance': distance,
+        'durationMinutes': durationMinutes,
+        'date': Timestamp.fromDate(date),
+        'notes': notes,
+        'photoURLs': photoURLs,
+        'isPublic': isPublic,
+        'createdAt': Timestamp.fromDate(createdAt),
+        'elevationGain': elevationGain,
+      };
+
+  String get formattedDuration {
+    final hours = durationMinutes ~/ 60;
+    final mins = durationMinutes % 60;
+    if (hours == 0) return '${mins}m';
+    if (mins == 0) return '${hours}h';
+    return '${hours}h ${mins}m';
   }
 }
