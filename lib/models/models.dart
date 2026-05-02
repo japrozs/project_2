@@ -249,3 +249,161 @@ class ReportModel {
         'userDisplayName': userDisplayName,
       };
 }
+
+class PostModel {
+  final String id;
+  final String userId;
+  final String hikeId;
+  final String caption;
+  final String photoURL;
+  final List<String> likes;
+  final int commentsCount;
+  final DateTime createdAt;
+  final String userDisplayName;
+  final String userPhotoURL;
+
+  const PostModel({
+    required this.id,
+    required this.userId,
+    this.hikeId = '',
+    required this.caption,
+    this.photoURL = '',
+    this.likes = const [],
+    this.commentsCount = 0,
+    required this.createdAt,
+    this.userDisplayName = '',
+    this.userPhotoURL = '',
+  });
+
+  factory PostModel.fromFirestore(DocumentSnapshot doc) {
+    final data = doc.data() as Map<String, dynamic>;
+    return PostModel(
+      id: doc.id,
+      userId: data['userId'] ?? '',
+      hikeId: data['hikeId'] ?? '',
+      caption: data['caption'] ?? '',
+      photoURL: data['photoURL'] ?? '',
+      likes: List<String>.from(data['likes'] ?? []),
+      commentsCount: data['commentsCount'] ?? 0,
+      createdAt: (data['createdAt'] as Timestamp?)?.toDate() ?? DateTime.now(),
+      userDisplayName: data['userDisplayName'] ?? '',
+      userPhotoURL: data['userPhotoURL'] ?? '',
+    );
+  }
+
+  Map<String, dynamic> toMap() => {
+        'userId': userId,
+        'hikeId': hikeId,
+        'caption': caption,
+        'photoURL': photoURL,
+        'likes': likes,
+        'commentsCount': commentsCount,
+        'createdAt': Timestamp.fromDate(createdAt),
+        'userDisplayName': userDisplayName,
+        'userPhotoURL': userPhotoURL,
+      };
+}
+
+// ─── NotificationModel ───────────────────────────────────────────────────────
+
+class NotificationModel {
+  final String id;
+  final String userId;
+  final String type;
+  final String message;
+  final String trailId;
+  final bool isRead;
+  final DateTime createdAt;
+
+  const NotificationModel({
+    required this.id,
+    required this.userId,
+    required this.type,
+    required this.message,
+    this.trailId = '',
+    this.isRead = false,
+    required this.createdAt,
+  });
+
+  factory NotificationModel.fromFirestore(DocumentSnapshot doc) {
+    final data = doc.data() as Map<String, dynamic>;
+    return NotificationModel(
+      id: doc.id,
+      userId: data['userId'] ?? '',
+      type: data['type'] ?? '',
+      message: data['message'] ?? '',
+      trailId: data['trailId'] ?? '',
+      isRead: data['isRead'] ?? false,
+      createdAt: (data['createdAt'] as Timestamp?)?.toDate() ?? DateTime.now(),
+    );
+  }
+
+  Map<String, dynamic> toMap() => {
+        'userId': userId,
+        'type': type,
+        'message': message,
+        'trailId': trailId,
+        'isRead': isRead,
+        'createdAt': Timestamp.fromDate(createdAt),
+      };
+}
+
+// ─── CommentModel ────────────────────────────────────────────────────────────
+
+class CommentModel {
+  final String id;
+  final String postId;
+  final String userId;
+  final String userDisplayName;
+  final String userPhotoURL;
+  final String text;
+  final DateTime createdAt;
+
+  const CommentModel({
+    required this.id,
+    required this.postId,
+    required this.userId,
+    required this.userDisplayName,
+    this.userPhotoURL = '',
+    required this.text,
+    required this.createdAt,
+  });
+
+  factory CommentModel.fromFirestore(DocumentSnapshot doc) {
+    final data = doc.data() as Map<String, dynamic>;
+    return CommentModel(
+      id: doc.id,
+      postId: data['postId'] ?? '',
+      userId: data['userId'] ?? '',
+      userDisplayName: data['userDisplayName'] ?? '',
+      userPhotoURL: data['userPhotoURL'] ?? '',
+      text: data['text'] ?? '',
+      createdAt: (data['createdAt'] as Timestamp?)?.toDate() ?? DateTime.now(),
+    );
+  }
+
+  Map<String, dynamic> toMap() => {
+        'postId': postId,
+        'userId': userId,
+        'userDisplayName': userDisplayName,
+        'userPhotoURL': userPhotoURL,
+        'text': text,
+        'createdAt': Timestamp.fromDate(createdAt),
+      };
+}
+
+// ─── Badge definitions ───────────────────────────────────────────────────────
+
+class BadgeDefinition {
+  final String id;
+  final String name;
+  final String description;
+  final String icon;
+
+  const BadgeDefinition({
+    required this.id,
+    required this.name,
+    required this.description,
+    required this.icon,
+  });
+}
