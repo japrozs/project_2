@@ -1,16 +1,26 @@
-# project_2
+# BigFoot 🥾
 
-A new Flutter project.
+A Flutter app for hikers to log trails, track stats, and share with a community.
 
-## Getting Started
+## Features
 
-This project is a starting point for a Flutter application.
+- Register / login with email & password
+- Log hikes with distance and location
+- Explore and rate local trails
+- Community feed with comments
+- Badges and achievements
 
-A few resources to get you started if this is your first Flutter project:
+## Tech Stack
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- **Flutter** — cross-platform UI
+- **Firebase Auth** — authentication
+- **Cloud Firestore** — database
+- **Google Maps** — trail exploration
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Setup
+
+1. Clone the repo
+2. Run `flutter pub get`
+3. Add your `google-services.json` (Android) and `GoogleService-Info.plist` (iOS) to the respective folders
+4. Enable **Email/Password** auth and **Firestore** in the Firebase console
+5. Run with `flutter run`
