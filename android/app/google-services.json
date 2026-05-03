@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "788180898486",
+    "project_id": "japrozs-mad-final-project",
+    "storage_bucket": "japrozs-mad-final-project.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:788180898486:android:08fcb51f43470f07cc0c17",
+        "android_client_info": {
+          "package_name": "com.example.project_2"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDmCncPXI6jpVd0yIQEo9aKqMQ7EHswhkg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
